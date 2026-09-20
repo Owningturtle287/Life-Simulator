@@ -26,7 +26,19 @@ export class Renderer {
     this.camera.x = c.width / 2; this.camera.y = c.height / 2;
     this.camera.zoom = Math.min((this.width - 50) / c.width, (this.height - 85) / c.height); this.fitted = true;
   }
-  setSnapshot(snapshot) { this.snapshot = snapshot; if (!this.fitted) this.fit(); }
+  setSnapshot(snapshot) {
+    this.snapshot = snapshot;
+    if (!this.fitted) {
+      this.fit();
+      // Begin inside the water on a phone so molecular detail is visible immediately.
+      // The fit control still shows the entire chamber at any time.
+      if (this.width <= 600 && this.height > this.width) {
+        const focus = snapshot.cells.find(c => !c.parent) || snapshot.sources[0];
+        this.camera.zoom = Math.max(this.camera.zoom, .7);
+        if (focus) { this.camera.x = focus.x; this.camera.y = focus.y; }
+      }
+    }
+  }
   worldAt(x, y) { return { x: (x - this.width / 2) / this.camera.zoom + this.camera.x, y: (y - this.height / 2) / this.camera.zoom + this.camera.y }; }
   zoomBy(factor, x = this.width / 2, y = this.height / 2) {
     const before = this.worldAt(x, y); this.camera.zoom = clamp(this.camera.zoom * factor, .12, 5);

@@ -17,6 +17,7 @@
 - Builder injection geometry and accounting.
 - The actual worker message protocol for pause, single step, checkpoint, restore, and error recovery.
 - Production asset completeness, standalone manifest, generated PNG sizes, offline cache paths, subdirectory hosting, and module references.
+- Service-worker upgrades that revalidate the whole app shell, and separate navigation for the phone preview.
 
 The build has no package-download step. CI repeats these checks before producing or deploying the static site.
 
@@ -24,7 +25,9 @@ The build has no package-download step. CI repeats these checks before producing
 
 The implementation has been checked through Node-based engine, worker, and build tests. Longer development runs exercised all three starting modes without non-finite positions or packet-accounting errors. These are software invariants, not biological validation.
 
-**Interactive browser screenshots and physical iPhone testing have not been completed.** The authoring environment blocked local browser navigation. Responsive layouts, safe-area insets, touch gestures, dialogs, Home Screen metadata, and offline files are implemented, but real-device usability, rendering, power consumption, and achievable acceleration still need verification. No 64× performance promise is made.
+The deployed application was exercised in Chrome after GitHub Pages deployment. Browser screenshots confirmed the desktop microscope and cell studio, plus 375 × 812 and 430 × 932 phone-sized iframe viewports. Both phone views fit their document width without horizontal overflow. The controls, guided enclosure, release into the simulation, eukaryotic start, oval boundary, and save/restore round trip were exercised through the visible interface. Offline readiness appeared, and the app itself reported no browser console errors (the browser extension emitted unrelated metadata warnings).
+
+The phone layout preview runs the actual application in two narrow viewports; it does **not** emulate Safari, a touchscreen, or a physical iPhone. Physical iPhone installation, airplane-mode launch, multitouch gestures, long-run power consumption, and achievable acceleration remain unverified. No 64× performance promise is made. The local browser endpoint was unavailable; the live GitHub Pages deployment was used for these checks.
 
 ## Manual acceptance checklist after hosting
 

@@ -62,3 +62,24 @@ test('the production build contains the complete offline app at a repository sub
     for (const m of source.matchAll(/(?:from\s+|import\s*)['"](\.[^'"]+)['"]/g)) await stat(path.resolve(dist, 'src', m[1]));
   }
 });
+
+test('offline upgrades reload assets and do not replace the phone preview with the app shell', async () => {
+  const { runInNewContext } = await import('node:vm');
+  const source = await readFile(path.join(root, 'sw.js'), 'utf8');
+  const handlers = {}, prefix = 'https://example.com/Life-Simulator/'; let installed;
+  const cache = { addAll: async requests => { installed = requests; }, match: async key => key === prefix + 'index.html' ? new Response('app shell') : undefined, put: async () => {} };
+  runInNewContext(source, {
+    URL, Request, Response,
+    self: { location: { href: prefix + 'sw.js' }, clients: { claim: async () => {} }, addEventListener: (name, fn) => handlers[name] = fn },
+    caches: { open: async () => cache, keys: async () => [], delete: async () => true },
+    fetch: async () => new Response('network document'),
+  });
+  let installing; handlers.install({ waitUntil: promise => installing = promise }); await installing;
+  assert.ok(installed.length > 10); assert.ok(installed.every(r => r.cache === 'reload'));
+  async function navigate(relative) {
+    let result; handlers.fetch({ request: { method: 'GET', url: prefix + relative, mode: 'navigate' }, respondWith: promise => result = promise });
+    return (await result).text();
+  }
+  assert.equal(await navigate('?seed=LAB'), 'app shell');
+  assert.equal(await navigate('preview.html'), 'network document');
+});

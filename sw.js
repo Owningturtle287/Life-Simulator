@@ -1,7 +1,7 @@
 const CACHE = 'life-simulator-v1.0.0';
 const ROOT = new URL('./', self.location.href);
 const ASSETS = ['./', './index.html', './style.css', './manifest.webmanifest', './src/main.js', './src/chemistry.js', './src/engine.js', './src/renderer.js', './src/builder.js', './src/worker.js', './assets/icon.svg', './assets/icon-192.png', './assets/icon-512.png'];
-self.addEventListener('install', event => { event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS.map(path => new URL(path, ROOT).href)))); });
+self.addEventListener('install', event => { event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS.map(path => new Request(new URL(path, ROOT), { cache: 'reload' }))))); });
 self.addEventListener('activate', event => { event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith('life-simulator-') && key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim())); });
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;

@@ -8,17 +8,14 @@ A small water world. A molecular beginning. An open-ended experiment.
 
 ## Open and install on iPhone
 
-The project includes a GitHub Pages deployment workflow. The intended address, **once Pages is enabled and the deployment succeeds**, is:
+**[Launch Life Simulator](https://owningturtle287.github.io/Life-Simulator/)**
 
-**https://owningturtle287.github.io/Life-Simulator/**
+1. Open the live app in **Safari** on your iPhone.
+2. Open **Share → Add to Home Screen**.
+3. Choose **Open as Web App** if offered, then **Add**.
+4. Open the new Home Screen icon. Wait for “Ready for offline exploration” in the save/download panel before trying offline.
 
-One-time repository setup:
-
-1. Open [Settings → Pages](https://github.com/Owningturtle287/Life-Simulator/settings/pages).
-2. Under **Build and deployment → Source**, select **GitHub Actions**.
-3. Open [Actions → Publish iPhone web app](https://github.com/Owningturtle287/Life-Simulator/actions/workflows/pages.yml), then **Run workflow** on `main`. If a previous run failed because Pages was disabled, rerun it.
-4. Wait for the deployment to finish. Open its website URL in Safari on your iPhone.
-5. In Safari, open **Share → Add to Home Screen**, choose **Open as Web App** if offered, then **Add**. The app includes these instructions under the save/download icon.
+The included GitHub Pages workflow is deployed for this repository. If you fork the project or need to configure hosting again, choose **Settings → Pages → Source → GitHub Actions**, then run **Publish iPhone web app** from the Actions tab on `main`. Future pushes rebuild and deploy automatically.
 
 This installs a web app, not a signed native `.ipa`. An App Store account or Xcode is not needed for the web app. The first visit needs a connection; wait for “Ready for offline exploration” before trying offline. Reopen while online to receive updates. Export important worlds as JSON because device storage can be cleared.
 
@@ -74,3 +71,5 @@ GitHub **Verify simulator** checks syntax, runs the tests, builds the site, and 
 | `tests/` | Scientific-model invariants, saved-state regression tests, worker protocol, deployment completeness |
 
 Read [SCIENTIFIC_MODEL.md](docs/SCIENTIFIC_MODEL.md) for exact assumptions, [EXPERIMENTS.md](docs/EXPERIMENTS.md) for guided experiments, and [VALIDATION.md](docs/VALIDATION.md) for checked behavior and remaining device checks.
+
+For responsive development, open [the live phone layout preview](https://owningturtle287.github.io/Life-Simulator/preview.html). It embeds the actual app at 375 × 812 and 430 × 932 CSS pixels; it is not a Safari emulator.
