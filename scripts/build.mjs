@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 import { writeIcons } from './icons.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'), out = path.join(root, 'dist');
 await rm(out, { recursive: true, force: true }); await mkdir(out, { recursive: true });
-for (const entry of ['index.html', 'style.css', 'manifest.webmanifest', 'sw.js', 'src', 'assets']) await cp(path.join(root, entry), path.join(out, entry), { recursive: true });
+for (const entry of ['index.html', 'preview.html', 'style.css', 'manifest.webmanifest', 'sw.js', 'src', 'assets']) await cp(path.join(root, entry), path.join(out, entry), { recursive: true });
 await writeIcons(path.join(out, 'assets'));
 // Content-derived cache version ensures any source change invalidates the app shell.
 const sources = await Promise.all(['index.html','style.css','src/main.js','src/chemistry.js','src/engine.js','src/renderer.js','src/builder.js','src/worker.js','sw.js','manifest.webmanifest','assets/icon.svg'].map(f => readFile(path.join(root, f))));

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Life Simulator · Layout checks</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 28px; background: #07171e; color: #daece5; font: 14px system-ui, sans-serif; }
+    header { max-width: 900px; margin: 0 auto 26px; }
+    h1 { font-size: 24px; font-weight: 500; margin: 0 0 12px; }
+    p { color: #9cb6b4; line-height: 1.6; }
+    a { color: #86ead0; }
+    main { display: flex; flex-wrap: wrap; gap: 35px; justify-content: center; align-items: start; }
+    figure { margin: 0; }
+    figcaption { margin-bottom: 12px; color: #9cb6b4; font-size: 12px; }
+    iframe { display: block; border: 1px solid #355359; border-radius: 18px; background: #07171e; }
+  </style>
+</head>
+<body>
+  <header><h1>Device layout checks</h1><p>Live instances of the app at two phone viewport sizes. These check responsive layout in your current browser; they do not emulate Safari or a physical iPhone. Each world begins paused.</p><a href="./">Open the full simulator</a></header>
+  <main>
+    <figure><figcaption>375 × 812 CSS pixels</figcaption><iframe title="iPhone layout: 375 by 812" name="phone-375" width="377" height="814" src="./?paused=1"></iframe></figure>
+    <figure><figcaption>430 × 932 CSS pixels</figcaption><iframe title="iPhone layout: 430 by 932" name="phone-430" width="432" height="934" src="./?paused=1"></iframe></figure>
+  </main>
+</body>
+</html>

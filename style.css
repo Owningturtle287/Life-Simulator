@@ -103,7 +103,7 @@ small {
   clip:rect(0,0,0,0);
   white-space:nowrap
 }
-.mobile-only {
+.icon-button.mobile-only {
   display:none
 }
 .eyebrow {
@@ -1708,7 +1708,7 @@ select {
   .desktop-only {
     display:none!important
   }
-  .mobile-only {
+  .icon-button.mobile-only {
     display:inline-flex
   }
   .app-header {

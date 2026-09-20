@@ -9,7 +9,9 @@ self.addEventListener('fetch', event => {
   if (url.origin !== ROOT.origin || !url.pathname.startsWith(ROOT.pathname)) return;
   // A single versioned cache keeps the worker, engine, and UI compatible offline.
   event.respondWith(caches.open(CACHE).then(async cache => {
-    const key = event.request.mode === 'navigate' ? new URL('./index.html', ROOT).href : event.request;
+    const index = new URL('./index.html', ROOT);
+    const appNavigation = event.request.mode === 'navigate' && [ROOT.pathname, index.pathname].includes(url.pathname);
+    const key = appNavigation ? index.href : event.request;
     const cached = await cache.match(key); if (cached) return cached;
     try { const response = await fetch(event.request); if (response.ok && ASSETS.some(path => new URL(path, ROOT).pathname === url.pathname)) await cache.put(key, response.clone()); return response; }
     catch { return new Response('This resource is unavailable offline.', { status: 503, headers: { 'Content-Type': 'text/plain' } }); }

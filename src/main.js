@@ -19,6 +19,8 @@ const builder = new CellBuilder($('#builder-canvas'), updateBuilder);
 const localKey = 'life-simulator-world-v1';
 const params = new URLSearchParams(location.search);
 const initial = { ...DEFAULTS, seed: params.get('seed') || DEFAULTS.seed };
+running = params.get('paused') !== '1';
+send('run', { running });
 send('init', { config: initial });
 worker.addEventListener('error', error => { running = false; updatePlayback(); toast('The simulation stopped unexpectedly. Your saved checkpoints are still available.'); console.error(error); });
 worker.onmessage = ({ data }) => {
