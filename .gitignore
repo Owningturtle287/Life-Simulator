@@ -1,0 +1,7 @@
+dist/
+node_modules/
+.DS_Store
+*.log
+test-output/
+assets/icon-192.png
+assets/icon-512.png

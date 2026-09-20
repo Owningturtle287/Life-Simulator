@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1c24">
+  <meta name="description" content="A living microscopic world. Explore molecular assembly, heredity, and selection in a hands-on artificial chemistry laboratory.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Life Simulator">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./assets/icon-192.png">
+  <link rel="stylesheet" href="./style.css">
+  <title>Life Simulator — A world in the making</title>
+</head>
+<body>
+  <svg class="symbol-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
+    <symbol id="i-world" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c5 4 5 12 0 16-5-4-5-12 0-16Z"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7Z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 5v14M15 5v14"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6L4 19q-1 2 2 2h12q3 0 2-2L14 9V3M7 15h10"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6v15M12 7C9 4 5 4 3 5v14c3-1 6-1 9 2 3-3 6-3 9-2V5c-3-1-6-1-9 2Z"/></symbol>
+    <symbol id="i-save" viewBox="0 0 24 24"><path d="M5 4h12l3 3v13H4V4ZM8 4v6h8V4M8 20v-7h8v7"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 10a8 8 0 1 1 1 8M4 4v6h6"/></symbol>
+    <symbol id="i-focus" viewBox="0 0 24 24"><path d="M9 4H4v5m11-5h5v5M4 15v5h5m11-5v5h-5"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5ZM19 3v4m-2-2h4"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 4v16h17M7 15l4-5 4 2 5-7"/></symbol>
+    <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3C9 7 5 11 5 15a7 7 0 0 0 14 0c0-4-4-8-7-12Z"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24"><path d="m15 4 5 5M4 20l5-1L21 7l-5-5L4 14Z"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v1"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M5 6h14M5 12h14M5 18h14"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+  </defs></svg>
+
+  <header class="app-header">
+    <a class="brand" href="./" aria-label="Life Simulator home"><span class="brand-mark"><span></span><i></i></span><div>LIFE<span>SIMULATOR</span></div></a>
+    <nav class="main-nav" aria-label="Workspace"><button class="nav-button active" id="observe-button"><svg><use href="#i-world"/></svg><span>Observe</span></button><button class="nav-button" id="studio-button"><svg><use href="#i-flask"/></svg><span>Cell studio</span></button><button class="nav-button" id="guide-button"><svg><use href="#i-book"/></svg><span>Field guide</span></button></nav>
+    <div class="header-actions"><span class="offline-status" id="offline-status">LOCAL EXPERIMENT</span><button class="icon-button" id="save-button" aria-label="Save and export world" title="Save and export"><svg><use href="#i-save"/></svg></button><button class="button small new-world" id="new-world-button"><svg><use href="#i-plus"/></svg><span>New world</span></button></div>
+  </header>
+
+  <main class="workspace">
+    <aside class="habitat-panel side-panel" id="habitat-panel" aria-label="Habitat controls">
+      <div class="panel-top"><span class="eyebrow">THE HABITAT</span><button class="icon-button mobile-only" data-close-panel aria-label="Close habitat"><svg><use href="#i-close"/></svg></button></div>
+      <h1 id="world-title">Primordial water</h1><p class="panel-intro">A small world. An open possibility.</p>
+      <button class="stage-card" id="stage-settings"><span class="stage-symbol"><svg><use href="#i-spark"/></svg></span><span><small>STARTING POINT</small><strong id="stage-label">Building blocks</strong></span><svg class="chevron"><use href="#i-chevron"/></svg></button>
+      <div class="section-heading"><h2>Water conditions</h2><span class="live-label">LIVE</span></div>
+      <div class="controls" id="habitat-controls">
+        <label class="range-label" for="temperature"><span>Temperature</span><output id="temperature-value">28 °C</output></label><input id="temperature" type="range" min="4" max="80" value="28" data-config="temperature"><div class="range-scale"><span>Cold</span><span>Hot</span></div>
+        <label class="range-label" for="food"><span>Nutrient supply</span><output id="food-value">65%</output></label><input id="food" type="range" min="0" max="150" value="65" data-config="food" data-divisor="100"><div class="range-scale"><span>Scarce</span><span>Abundant</span></div>
+        <label class="range-label" for="light"><span>Light exposure</span><output id="light-value">72%</output></label><input id="light" type="range" min="0" max="100" value="72" data-config="light" data-divisor="100"><div class="range-scale"><span>Deep water</span><span>Sunlit</span></div>
+        <label class="range-label" for="mixing"><span>Water movement</span><output id="mixing-value">Gentle</output></label><input id="mixing" type="range" min="0" max="150" value="32" data-config="mixing" data-divisor="100">
+      </div>
+      <button class="text-button advanced-link" id="environment-button">More environment settings<svg><use href="#i-chevron"/></svg></button>
+      <div class="panel-divider"></div><div class="section-heading"><h2>Introduce matter</h2><button class="tiny-info" id="matter-help" aria-label="About matter tools"><svg><use href="#i-info"/></svg></button></div>
+      <div class="brush-tools"><button class="tool-chip" data-brush="food"><i style="--dot:#d7e8d4"></i>Nutrient</button><button class="tool-chip" data-brush="lipid"><i style="--dot:#86ead0"></i>Amphiphile</button><button class="tool-chip" data-brush="nucleotide"><i style="--dot:#f5b486"></i>Nucleotide</button><button class="tool-chip" data-brush="mineral"><span class="mineral-icon">◇</span>Mineral</button></div>
+      <p class="hint" id="brush-hint">Choose a material, then tap the water.</p>
+      <div class="panel-bottom"><span class="seed-label">WORLD SEED</span><button id="seed-button" class="seed-value" title="Copy world seed">TIDAL-042<svg><use href="#i-chevron"/></svg></button><p>Same seed. Same starting possibilities.</p></div>
+    </aside>
+
+    <section class="microscope" aria-label="Live simulation">
+      <canvas id="world-canvas" aria-label="Interactive microscopic water biome. Drag to pan, pinch or use buttons to zoom; tap a molecule to inspect." role="img" tabindex="0"></canvas>
+      <div class="scope-top"><div class="scope-title"><span class="status-dot" id="running-dot"></span><span id="running-label">LIVE OBSERVATION</span></div><div class="view-selector"><label for="layer" class="sr-only">Microscope layer</label><select id="layer"><option value="natural">Natural view</option><option value="structure">Bond structure</option><option value="energy">Chemical energy</option><option value="lineage">Lineages</option></select></div></div>
+      <div class="world-readout"><span id="phase-label">PREBIOTIC CHEMISTRY</span><p id="scope-caption">The beginning is in the details.</p></div>
+      <div class="scope-side"><button class="icon-button" id="zoom-in" aria-label="Zoom in"><svg><use href="#i-plus"/></svg></button><button class="icon-button" id="zoom-out" aria-label="Zoom out"><svg><use href="#i-minus"/></svg></button><span></span><button class="icon-button" id="fit-button" aria-label="Fit entire biome"><svg><use href="#i-focus"/></svg></button><button class="icon-button" id="grid-button" aria-label="Toggle measurement grid" aria-pressed="false"><svg><use href="#i-world"/></svg></button></div>
+      <div class="scope-bottom"><span class="scale-bar"><i></i><span id="scale-label">100 model units</span></span><span class="gesture-hint">Drag to explore · Scroll to zoom</span><span id="zoom-label">1.0×</span></div>
+      <div class="capacity-banner" id="capacity-banner" hidden>Particle budget reached. Reactions continue; new matter is paused.</div>
+      <div class="selection-toast" id="selection-toast" hidden><span id="selection-name"></span><button id="inspect-mobile">Inspect <svg><use href="#i-chevron"/></svg></button></div>
+    </section>
+
+    <aside class="observation-panel side-panel" id="observation-panel" aria-label="Observations and inspection">
+      <div class="panel-top"><span class="eyebrow">LIFE, UNFOLDING</span><button class="icon-button mobile-only" data-close-panel aria-label="Close observations"><svg><use href="#i-close"/></svg></button><svg class="desktop-only panel-symbol"><use href="#i-chart"/></svg></div>
+      <div class="stat-grid"><div><strong id="stat-particles">0</strong><span>Molecular packets</span></div><div><strong id="stat-cells">0</strong><span>Model cells</span></div><div><strong id="stat-polymers">0</strong><span>RNA-like chains</span></div><div><strong id="stat-generation">0</strong><span>Highest generation</span></div></div>
+      <div class="trend-block"><div class="section-heading"><h2>Signs of organization</h2></div><canvas id="history-chart" aria-label="Measured history of compartments and RNA-like chains" role="img"></canvas><div class="chart-legend"><span><i style="--dot:#86ead0"></i>Compartments</span><span><i style="--dot:#c3a2ee"></i>Chains</span></div></div>
+      <div id="inspector" class="inspector"><div class="inspector-empty"><svg><use href="#i-focus"/></svg><strong>Look a little closer</strong><p>Tap any molecule or membrane to see what it is doing.</p></div></div>
+      <div class="section-heading journal-heading"><h2>Field notes</h2><span id="event-count">01</span></div><div class="event-list" id="event-list" aria-live="off"></div>
+      <button class="text-button model-link" id="model-button"><svg><use href="#i-info"/></svg>About the scientific model</button>
+    </aside>
+  </main>
+
+  <footer class="transport"><div class="transport-meta"><span class="eyebrow">MODEL TIME</span><strong id="time-value">00:00</strong><span id="speed-actual"></span></div><div class="playback"><button class="play-button" id="play-button" aria-label="Pause simulation"><svg><use href="#i-pause"/></svg></button><div class="speed-controls" aria-label="Simulation speed"><button class="speed active" data-speed="1" aria-pressed="true">1×</button><button class="speed" data-speed="4" aria-pressed="false">4×</button><button class="speed" data-speed="16" aria-pressed="false">16×</button><button class="speed" data-speed="64" aria-pressed="false">64×</button></div><button class="icon-button step-button" id="step-button" aria-label="Advance one simulation step" title="One step"><svg><use href="#i-chevron"/></svg></button></div><div class="transport-end"><span class="chemistry-label"><i></i>Local rules. Open outcomes.</span><button class="icon-button" id="session-button" aria-label="World files and installation"><svg><use href="#i-download"/></svg></button></div></footer>
+  <nav class="mobile-nav" aria-label="Mobile panels"><button id="mobile-habitat"><svg><use href="#i-world"/></svg>Habitat</button><button id="mobile-studio"><svg><use href="#i-flask"/></svg>Cell studio</button><button id="mobile-observations"><svg><use href="#i-chart"/></svg>Observe</button><button id="mobile-guide"><svg><use href="#i-book"/></svg>Guide</button></nav>
+  <div class="panel-scrim" id="panel-scrim" hidden></div>
+
+  <dialog id="world-dialog" class="dialog world-dialog"><form id="world-form"><div class="dialog-heading"><div><span class="eyebrow" id="world-dialog-eyebrow">A FRESH POSSIBILITY</span><h2 id="world-dialog-title">Make a small world.</h2></div><button type="button" class="icon-button" data-close-dialog aria-label="Close world settings"><svg><use href="#i-close"/></svg></button></div><div class="dialog-body">
+    <fieldset class="starting-fieldset"><legend>Where would you like to begin?</legend><div class="starting-options"><label><input type="radio" name="stage" value="molecules" checked><span class="start-visual molecules-visual">· ∴ ·</span><strong>Building blocks</strong><span>Unassembled matter.<br>An entirely open beginning.</span><small>DEFAULT</small></label><label><input type="radio" name="stage" value="prokaryotic"><span class="start-visual">◌</span><strong>Prokaryotic</strong><span>Simple seeded compartments.<br>Chemistry without a nucleus.</span></label><label><input type="radio" name="stage" value="eukaryotic"><span class="start-visual">◎</span><strong>Eukaryotic</strong><span>Nested seeded compartments.<br>Worlds within worlds.</span></label></div></fieldset>
+    <div class="form-row"><label>World seed<input name="seed" id="world-seed" maxlength="60" value="TIDAL-042" autocomplete="off"></label><button type="button" class="button secondary" id="random-seed"><svg><use href="#i-spark"/></svg>Randomize</button></div>
+    <div class="form-grid"><label>Biome width <output id="width-out">1500 u</output><input name="width" type="range" min="600" max="3000" step="100" value="1500" id="world-width"></label><label>Biome height <output id="height-out">1050 u</output><input name="height" type="range" min="500" max="2400" step="50" value="1050" id="world-height"></label><label>Boundary<select name="shape"><option value="rectangle">Rounded chamber</option><option value="ellipse">Oval pool</option></select></label><label>Particle budget<select name="particleLimit"><option value="1000">1,000 · Light</option><option value="1800" selected>1,800 · Balanced</option><option value="3000">3,000 · Detailed</option></select></label><label>Acidity · pH <output id="ph-out">7.2</output><input name="ph" id="world-ph" type="range" min="4" max="10" step="0.1" value="7.2"></label><label>Salinity <output id="salinity-out">18 ppt</output><input name="salinity" id="world-salinity" type="range" min="0" max="70" value="18"></label><label>Copying error rate <output id="mutation-out">1.8%</output><input name="mutation" id="world-mutation" type="range" min="0" max="12" step="0.1" value="1.8"></label><label>Mineral surfaces<select name="mineralCount"><option value="0">None</option><option value="3">A few</option><option value="5" selected>Scattered</option><option value="10">Mineral rich</option></select></label></div>
+    <p class="note">All starting modes retain free building blocks. Times and distances are model units; an organic run may assemble, persist, or fail.</p><p class="form-error" id="world-error" role="alert"></p>
+  </div><div class="dialog-footer"><button type="button" class="button secondary" data-close-dialog>Keep exploring</button><button class="button primary" type="submit" id="world-submit"><svg><use href="#i-plus"/></svg>Create world</button></div></form></dialog>
+
+  <dialog id="studio-dialog" class="dialog studio-dialog"><div class="dialog-heading"><div><span class="eyebrow">MOLECULE BY MOLECULE</span><h2>Cell studio</h2></div><button class="icon-button" data-close-dialog aria-label="Close cell studio"><svg><use href="#i-close"/></svg></button></div><div class="studio-layout"><div class="studio-workbench"><div class="studio-toolbar"><button class="tool-chip active" data-studio-tool="paint">Place</button><button class="tool-chip" data-studio-tool="move">Move</button><button class="tool-chip" data-studio-tool="bond">Connect</button><button class="tool-chip" data-studio-tool="erase">Erase</button><button class="icon-button" id="studio-undo" aria-label="Undo last builder action"><svg><use href="#i-reset"/></svg></button></div><canvas id="builder-canvas" aria-label="Cell assembly workspace. Select a component, then tap or draw to place it." role="img" tabindex="0"></canvas><div class="studio-canvas-caption"><span id="component-count">0 components</span><span>Actual geometry, not a cell sprite</span></div></div><div class="studio-palette"><h3>Molecular toolkit</h3><p class="hint">Choose a component, then draw in the dish. Nearby matching components connect.</p><div id="component-palette"></div><div class="selected-part-note" id="selected-part-note"></div><div class="builder-guidance"><h3>Can it hold together?</h3><ul id="builder-checklist"></ul></div><button class="text-button" id="starter-blueprint">Try a guided enclosure<svg><use href="#i-chevron"/></svg></button><div class="blueprint-files"><button class="text-button" id="save-blueprint">Save design</button><button class="text-button" id="load-blueprint">Load design</button><button class="text-button" id="clear-blueprint">Clear</button></div></div></div><div class="dialog-footer"><p id="studio-feedback">Build any arrangement. An enclosure is a useful first experiment.</p><button class="button primary" id="release-blueprint"><svg><use href="#i-drop"/></svg>Release into water</button></div></dialog>
+
+  <dialog id="guide-dialog" class="dialog guide-dialog"><div class="dialog-heading"><div><span class="eyebrow">A GUIDE TO THE UNSEEN</span><h2>Read the small things.</h2></div><button class="icon-button" data-close-dialog aria-label="Close field guide"><svg><use href="#i-close"/></svg></button></div><div class="guide-tabs" role="tablist" aria-label="Field guide sections"><button role="tab" aria-selected="true" data-guide="explore">Getting started</button><button role="tab" aria-selected="false" data-guide="molecules">Molecules</button><button role="tab" aria-selected="false" data-guide="science">The science</button></div><div id="guide-content" class="dialog-body prose"></div></dialog>
+
+  <dialog id="files-dialog" class="dialog files-dialog"><div class="dialog-heading"><div><span class="eyebrow">KEEP THE EXPERIMENT</span><h2>Your world, with you.</h2></div><button class="icon-button" data-close-dialog aria-label="Close files"><svg><use href="#i-close"/></svg></button></div><div class="dialog-body"><p class="file-intro">Worlds include every molecule, bond, setting, and the random generator state.</p><button class="file-action" id="save-local"><svg><use href="#i-save"/></svg><span><strong>Save on this device</strong><small>Keep an exact checkpoint in your browser</small></span><svg><use href="#i-chevron"/></svg></button><button class="file-action" id="restore-local"><svg><use href="#i-reset"/></svg><span><strong>Restore saved world</strong><small id="saved-time">No saved world yet</small></span><svg><use href="#i-chevron"/></svg></button><button class="file-action" id="export-world"><svg><use href="#i-download"/></svg><span><strong>Export world file</strong><small>Download a portable .json checkpoint</small></span><svg><use href="#i-chevron"/></svg></button><button class="file-action" id="import-world"><svg><use href="#i-plus"/></svg><span><strong>Import world file</strong><small>Continue a previous experiment</small></span><svg><use href="#i-chevron"/></svg></button><div class="install-card"><span class="eyebrow">ON YOUR IPHONE</span><h3>A little world on your Home Screen.</h3><p>Open the hosted app in Safari. Tap <strong>Share → Add to Home Screen</strong>, then open the new icon. Once the offline indicator is ready, the simulator works without a connection.</p><span id="install-status">Checking offline support…</span><button class="button secondary" id="install-button" hidden>Install app</button></div></div></dialog>
+  <input type="file" id="world-file-input" accept=".json,application/json" hidden><input type="file" id="blueprint-file-input" accept=".json,application/json" hidden>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <noscript><div class="noscript">Life Simulator needs JavaScript to run its molecular simulation.</div></noscript>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
